@@ -6,7 +6,7 @@
 
 FROM php:7.4-cli
 LABEL maintainer="chinayin <whereismoney@qq.com>" Version="7.4"
-ENV DEBIAN_FRONTEND=noninteractive CLI_IMAGE_VERSION="2020-09-02 16:03"
+ENV DEBIAN_FRONTEND=noninteractive CLI_IMAGE_VERSION="2020-09-07 16:56"
 
 ARG CHANGE_SOURCE=true
 ARG TIMEZONE=Asia/Shanghai
@@ -39,6 +39,8 @@ RUN set -eux \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     ## Install memcached
     && apt-get install -y --no-install-recommends libmemcached-dev && pecl install igbinary msgpack memcached && docker-php-ext-enable memcached \
+    ## Install swoole
+    && pecl install -o -f swoole && docker-php-ext-enable swoole \
     ## Clean up
     && pecl clear-cache && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
